@@ -1,0 +1,41 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+#services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+services:
+    numeros.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', un: 'exact', deux: 'exact', trois: 'exact', quatre: 'exact', cinq: 'exact' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'numeros.search' } ]
+
+    numeros.numeric_filter:
+        parent:    'api_platform.doctrine.orm.range_filter'
+        arguments: [ { id: ~ } ]
+        tags:      [ { name: 'api_platform.filter', id: 'numeros.range' } ]
+
+    # Enable date filter for for the property "dateProperty" of the resource "offer"
+    occurence.date_filter:
+        parent:    'api_platform.doctrine.orm.date_filter'
+        arguments: [ { occurAt: ~ } ]
+        tags:      [ { name: 'api_platform.filter', id: 'occurence.date' } ]
+
+    occurence.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', occurAt: 'exact' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'occurence.search' } ]
+
+    etoiles.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', un: 'exact', deux: 'exact' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'etoiles.search' } ]
+
+    etoiles.numeric_filter:
+        parent:    'api_platform.doctrine.orm.range_filter'
+        arguments: [ { id: ~ } ]
+        tags:      [ { name: 'api_platform.filter', id: 'etoiles.range' } ]

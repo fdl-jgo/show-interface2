@@ -1,0 +1,81 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Occurence
+ *
+ * @ApiResource
+ * @ORM\Table(name="occurence")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OccurenceRepository")
+ */
+class Occurence
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="occurAt", type="date")
+     */
+    private $occurAt;
+
+    /**
+     * Many Numeroses have One Occurence.
+     * @ORM\ManyToOne(targetEntity="Numeros", inversedBy="occurences")
+     * @ORM\JoinColumn(name="numeros_id", referencedColumnName="id")
+     */
+    private $numeros;
+
+    /**
+     * Many Etoiles have One Occurence. //chaque ligne d'etoiles => une occurence
+     * @ORM\ManyToOne(targetEntity="Etoiles", inversedBy="occurences")
+     * @ORM\JoinColumn(name="etoiles_id", referencedColumnName="id")
+     */
+    private $etoiles;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set occurAt
+     *
+     * @param \DateTime $occurAt
+     *
+     * @return Occurence
+     */
+    public function setOccurAt($occurAt)
+    {
+        $this->occurAt = $occurAt;
+
+        return $this;
+    }
+
+    /**
+     * Get occurAt
+     *
+     * @return \DateTime
+     */
+    public function getOccurAt()
+    {
+        return $this->occurAt;
+    }
+}
